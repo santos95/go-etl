@@ -1,0 +1,10 @@
+server: "localhost"
+port: "1433"
+database: "test"
+table: "dbo.test"
+user: "test"
+password: "test"
+mongouri: "mongodb://localhost:27017"
+databasemongo: "etl-test"
+collection: "testcollection"
+batchsize: 100
