@@ -1,10 +1,10 @@
 server: "localhost"
 port: "1433"
-database: "test"
-table: "dbo.test"
-user: "test"
-password: "test"
+database: "TSQL2012"
+table: "ORDERS"
+user: "etl-usr"
+password: "U3VwZXItZXRsLXVzZXI="
 mongouri: "mongodb://localhost:27017"
 databasemongo: "etl-test"
-collection: "testcollection"
-batchsize: 100
+collection: "fact_orders"
+batchsize: 50

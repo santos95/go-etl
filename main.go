@@ -39,10 +39,34 @@ func main() {
     fmt.Println("SQLServer URI: : ", sqlServer)
     database := configValues.Database
     fmt.Println("Origin Database: ", database)
+    port, _ := strconv.Atoi(configValues.Port)
+    fmt.Println("Port: ", port)
     user := configValues.User
     fmt.Println("User:", user)
+    pass := configValues.Password 
     batchSize, _ := strconv.Atoi(configValues.Batchsize)
     fmt.Println("batchsize: ", batchSize)
+
+    connStr := connection.GetSqlServerConnectionString(sqlServer, database, user, pass)
+
+    fmt.Println("connection string: ", connStr)
+    
+    // get sql server connection
+    db := connection.GetSqlServerConnection(connStr)
+
+    // close db connection
+    defer db.Close()
+
+    // test connection
+    var version string 
+    err = db.QueryRow("SELECT @@VERSION").Scan(&version)
+
+    if err != nil {
+
+        log.Fatalf("Query failed: %v", err)
+    }
+
+    fmt.Println("SqlServer version: ", version)
 
     // target configuration
     fmt.Println("Target Configuration: ")
@@ -52,6 +76,7 @@ func main() {
     fmt.Println("MongoDatabase: ", mongoDatabase)
     collection := configValues.Collection 
     fmt.Println("Collection: ", collection)
+
 
     // establish mongodb connection 
     client := connection.GetMongoConnection(mongouri)
