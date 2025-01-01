@@ -7,6 +7,7 @@ import (
     "log"
     "github.com/santos95/go-etl/config"
     "github.com/santos95/go-etl/connection"
+    "github.com/santos95/go-etl/process"
     "time"
     "context"
 )
@@ -89,6 +90,14 @@ func main() {
     } else {
         fmt.Println("Successfully connected to mongodb")
     }
+
+    fmt.Println("Start ETL-PROCESS")
+    fmt.Println("--------------------------------------------")
+    fmt.Println("--------------------------------------------")
+
+    // get endDate from the last execution
+    startDate := process.GetLasExecution(db)
+    fmt.Println("StartDate: ", startDate)
 
     if *processType == "incremental" {
         batch = 1
